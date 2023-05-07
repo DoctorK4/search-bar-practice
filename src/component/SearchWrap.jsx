@@ -22,14 +22,19 @@ export const SearchWrap = () => {
   const handleFocus = event => {
     if (event.key === 'ArrowDown') {
       setFocusIndex(prev => prev + 1);
+      // eslint-disable-next-line no-console
       console.log(focusIndex);
     }
     if (event.key === 'ArrowUp') {
       setFocusIndex(prev => prev - 1);
+      // eslint-disable-next-line no-console
       console.log(focusIndex);
     }
     if (event.key === 'Enter') {
-      setInputValue();
+      setInputValue(event.target.value);
+    }
+    if (event.key === 'Escape') {
+      setFocusIndex(-1);
     }
   };
 
@@ -45,11 +50,15 @@ export const SearchWrap = () => {
           setRecommendList(newList);
         }
         if (newList.length > maxListLength) {
-          setRecommendList(newList.slice(0, 7));
+          setRecommendList(newList.slice(0, maxListLength));
         }
       }
       if (inputValue && inputValueCache) {
-        setRecommendList(JSON.parse(inputValueCache));
+        const cached = JSON.parse(inputValueCache);
+        // eslint-disable-next-line no-unused-expressions
+        cached.length > maxListLength
+          ? setRecommendList(cached.slice(0, maxListLength))
+          : setRecommendList(cached);
       }
     }, debounceTime);
     return () => {
