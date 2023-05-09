@@ -1,8 +1,14 @@
+import styled from 'styled-components';
+
 export const KeywordRecommendWindow = ({ children }) => {
   return (
-    <div>
+    <DIV>
       <span>추천검색어</span>
       <ul>{children}</ul>
-    </div>
+    </DIV>
   );
 };
+
+const DIV = styled.div`
+  background-color: white;
+`;
