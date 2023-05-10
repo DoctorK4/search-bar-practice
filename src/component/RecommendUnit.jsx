@@ -1,16 +1,29 @@
 import styled from 'styled-components';
 
-export const RecommendUnit = ({ children, focus, setInputValue }) => {
+export const RecommendUnit = ({
+  children,
+  index,
+  focus,
+  setFocusIndex,
+  setInputValue,
+}) => {
   const changeInputToKeyword = e => {
     e.preventDefault();
     setInputValue(e.target.value);
   };
+
+  const focusChange = () => {
+    setFocusIndex(index);
+  };
+
   return (
-    <StyledRecommendUnit>
+    <StyledRecommendUnit key={index}>
       <StyledButton
         type="button"
         isActive={focus}
         onClick={changeInputToKeyword}
+        onMouseOver={focusChange}
+        onFocus={focusChange}
       >
         {children}
       </StyledButton>
@@ -27,6 +40,8 @@ export const StyledRecommendUnit = styled.li`
 `;
 
 const StyledButton = styled.button`
+  background-color: transparent;
+  width: 100%;
   ${({ isActive }) => isActive && `background-color: lightgray;`}
   border: 0;
 `;

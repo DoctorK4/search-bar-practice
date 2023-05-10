@@ -1,6 +1,6 @@
 import { getRecommendData } from 'api/getRecommendData';
 import {
-  Button,
+  SearchButton,
   Input,
   RecommendUnit,
   KeywordRecommendWindow,
@@ -18,25 +18,26 @@ export const SearchWrap = () => {
   const handleValue = async e => {
     e.preventDefault();
     setInputValue(e.target.value);
+    setFocusIndex(-1);
   };
 
   const handleFocus = event => {
     if (inputValue && event.key === 'ArrowDown') {
       if (focusIndex < recommendList.length - 1) {
         setFocusIndex(focusIndex + 1);
-        console.log(focusIndex);
+        // console.log(focusIndex);
       } else {
         setFocusIndex(0);
-        console.log(focusIndex);
+        // console.log(focusIndex);
       }
     }
     if (inputValue && event.key === 'ArrowUp') {
       if (focusIndex > 0) {
         setFocusIndex(prev => prev - 1);
-        console.log(focusIndex);
+        // console.log(focusIndex);
       } else {
         setFocusIndex(recommendList.length - 1);
-        console.log(focusIndex);
+        // console.log(focusIndex);
       }
     }
   };
@@ -89,7 +90,7 @@ export const SearchWrap = () => {
             onChange={handleValue}
             onKeyDown={handleFocus}
           />
-          <Button type={buttonType}>검색</Button>
+          <SearchButton type={buttonType}>검색</SearchButton>
         </form>
       </div>
       <KeywordRecommendWindow>
@@ -99,6 +100,8 @@ export const SearchWrap = () => {
               key={item.id}
               focus={focusIndex === index}
               setInputValue={setInputValue}
+              index={index}
+              setFocusIndex={setFocusIndex}
             >
               {item.name}
             </RecommendUnit>
