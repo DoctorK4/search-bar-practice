@@ -5,6 +5,7 @@ import {
   RecommendUnit,
   KeywordRecommendWindow,
   Wrapper,
+  StyledRecommendUnit,
 } from 'component/';
 import { debounceTime, maxListLength } from 'constant';
 import { useEffect, useState } from 'react';
@@ -20,21 +21,23 @@ export const SearchWrap = () => {
   };
 
   const handleFocus = event => {
-    if (event.key === 'ArrowDown') {
-      setFocusIndex(prev => prev + 1);
-      // eslint-disable-next-line no-console
-      console.log(focusIndex);
+    if (inputValue && event.key === 'ArrowDown') {
+      if (focusIndex < recommendList.length - 1) {
+        setFocusIndex(focusIndex + 1);
+        console.log(focusIndex);
+      } else {
+        setFocusIndex(0);
+        console.log(focusIndex);
+      }
     }
-    if (event.key === 'ArrowUp') {
-      setFocusIndex(prev => prev - 1);
-      // eslint-disable-next-line no-console
-      console.log(focusIndex);
-    }
-    if (event.key === 'Enter') {
-      setInputValue(event.target.value);
-    }
-    if (event.key === 'Escape') {
-      setFocusIndex(-1);
+    if (inputValue && event.key === 'ArrowUp') {
+      if (focusIndex > 0) {
+        setFocusIndex(prev => prev - 1);
+        console.log(focusIndex);
+      } else {
+        setFocusIndex(recommendList.length - 1);
+        console.log(focusIndex);
+      }
     }
   };
 
@@ -45,12 +48,15 @@ export const SearchWrap = () => {
         const newList = await getRecommendData(inputValue);
         if (newList.length > 0) {
           localStorage.setItem(inputValue, JSON.stringify(newList));
+          // return;
         }
         if (newList.length <= maxListLength) {
           setRecommendList(newList);
+          // return;
         }
         if (newList.length > maxListLength) {
           setRecommendList(newList.slice(0, maxListLength));
+          // return;
         }
       }
       if (inputValue && inputValueCache) {
@@ -89,12 +95,16 @@ export const SearchWrap = () => {
       <KeywordRecommendWindow>
         {inputValue ? (
           recommendList.map((item, index) => (
-            <RecommendUnit key={item.id} focus={focusIndex === index}>
+            <RecommendUnit
+              key={item.id}
+              focus={focusIndex === index}
+              setInputValue={setInputValue}
+            >
               {item.name}
             </RecommendUnit>
           ))
         ) : (
-          <RecommendUnit>검색어 없음</RecommendUnit>
+          <StyledRecommendUnit>검색어 없음</StyledRecommendUnit>
         )}
       </KeywordRecommendWindow>
     </Wrapper>

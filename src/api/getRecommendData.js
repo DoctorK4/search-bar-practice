@@ -12,7 +12,6 @@ export const getRecommendData = async KeywordInput => {
     });
     // eslint-disable-next-line no-console
     console.info('calling api');
-    // console.log(response.data);
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
