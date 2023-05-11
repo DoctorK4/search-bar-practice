@@ -2,6 +2,7 @@ import { getRecommendData } from 'api/getRecommendData';
 import {
   SearchButton,
   Input,
+  InputWrapper,
   RecommendUnit,
   KeywordRecommendWindow,
   Wrapper,
@@ -15,6 +16,8 @@ export const SearchWrap = () => {
   const [inputValue, setInputValue] = useState('');
   const [recommendList, setRecommendList] = useState([]);
   const [focusIndex, setFocusIndex] = useState(-1);
+  const [showRecommend, setShowRecommend] = useState(false);
+
   const handleValue = async e => {
     e.preventDefault();
     setInputValue(e.target.value);
@@ -25,19 +28,15 @@ export const SearchWrap = () => {
     if (inputValue && event.key === 'ArrowDown') {
       if (focusIndex < recommendList.length - 1) {
         setFocusIndex(focusIndex + 1);
-        // console.log(focusIndex);
       } else {
         setFocusIndex(0);
-        // console.log(focusIndex);
       }
     }
     if (inputValue && event.key === 'ArrowUp') {
       if (focusIndex > 0) {
         setFocusIndex(prev => prev - 1);
-        // console.log(focusIndex);
       } else {
         setFocusIndex(recommendList.length - 1);
-        // console.log(focusIndex);
       }
     }
   };
@@ -82,17 +81,18 @@ export const SearchWrap = () => {
           <br /> 온라인으로 참여하기
         </h2>
       </section>
-      <div className="inputWrapper">
+      <InputWrapper>
         <form>
           <Input
             placeholder="질환명을 입력해 주세요."
             value={inputValue}
             onChange={handleValue}
             onKeyDown={handleFocus}
+            onFocus={() => setShowRecommend(true)}
           />
           <SearchButton type={buttonType}>검색</SearchButton>
         </form>
-      </div>
+      </InputWrapper>
       <KeywordRecommendWindow>
         {inputValue ? (
           recommendList.map((item, index) => (

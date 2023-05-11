@@ -37,6 +37,7 @@ export const StyledRecommendUnit = styled.li`
   background-color: white;
   z-index: 3;
   position: relative;
+  text-align: center;
 `;
 
 const StyledButton = styled.button`
