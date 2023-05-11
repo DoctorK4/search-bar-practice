@@ -8,7 +8,12 @@ import {
   Wrapper,
   StyledRecommendUnit,
 } from 'component/';
-import { debounceTime, maxListLength } from 'constant';
+import {
+  debounceTime,
+  FIRST_RECOMMEND_KEYWORD,
+  maxListLength,
+  RESET_FOCUS_INDEX,
+} from 'constant';
 import { useEffect, useState } from 'react';
 
 export const SearchWrap = () => {
@@ -21,7 +26,7 @@ export const SearchWrap = () => {
   const handleValue = async e => {
     e.preventDefault();
     setInputValue(e.target.value);
-    setFocusIndex(-1);
+    setFocusIndex(RESET_FOCUS_INDEX);
   };
 
   const handleFocus = event => {
@@ -29,7 +34,7 @@ export const SearchWrap = () => {
       if (focusIndex < recommendList.length - 1) {
         setFocusIndex(focusIndex + 1);
       } else {
-        setFocusIndex(0);
+        setFocusIndex(FIRST_RECOMMEND_KEYWORD);
       }
     }
     if (inputValue && event.key === 'ArrowUp') {
@@ -89,12 +94,13 @@ export const SearchWrap = () => {
             onChange={handleValue}
             onKeyDown={handleFocus}
             onFocus={() => setShowRecommend(true)}
+            onBlur={() => setShowRecommend(false)}
           />
           <SearchButton type={buttonType}>검색</SearchButton>
         </form>
       </InputWrapper>
-      <KeywordRecommendWindow>
-        {inputValue ? (
+      <KeywordRecommendWindow showRecommend={showRecommend}>
+        {recommendList.length !== 0 && inputValue ? (
           recommendList.map((item, index) => (
             <RecommendUnit
               key={item.id}

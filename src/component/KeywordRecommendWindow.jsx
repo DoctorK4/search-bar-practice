@@ -1,8 +1,9 @@
+import { primaryColor } from 'constant';
 import styled from 'styled-components';
 
-export const KeywordRecommendWindow = ({ children, setShowRecommend }) => {
+export const KeywordRecommendWindow = ({ children, showRecommend }) => {
   return (
-    <DIV setShowRecommend={setShowRecommend}>
+    <DIV showRecommend={showRecommend}>
       <span>추천검색어</span>
       <ul>{children}</ul>
     </DIV>
@@ -11,13 +12,16 @@ export const KeywordRecommendWindow = ({ children, setShowRecommend }) => {
 
 const DIV = styled.div`
   background-color: white;
-  width: 22.5%;
+  width: 430px;
   position: absolute;
-  left: 37.5%;
-  top: 45%;
+  left: 745px;
+  top: 185px;
   border-radius: 25px;
-  border: 1px solid black;
-  ${({ setShowRecommend }) => setShowRecommend && `display:none;`}
+  border: 1px solid ${primaryColor};
+  box-shadow: 3px 3px 3px 3px lightgray;
+  ${({ showRecommend }) => !showRecommend && `display:none;`}
+  padding-top: 1%;
+  margin: 0 auto;
 
   ul {
     padding-left: 0;
