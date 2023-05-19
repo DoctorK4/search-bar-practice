@@ -1,13 +1,13 @@
 import { AxiosError } from 'axios';
 import { axiosInstance } from './axiosInstance';
 
-const BASE_URL = `https://api.clinicaltrialskorea.com/api/v1/search-conditions/`;
+const BASE_URL = `https://api.clinicaltrialskorea.com/api/v1/`;
 
 export const getRecommendData = async KeywordInput => {
   if (KeywordInput.length === 0) return;
 
   try {
-    const response = await axiosInstance.get(BASE_URL, {
+    const response = await axiosInstance.get('/search-conditions/', {
       params: {
         name: KeywordInput,
       },
