@@ -1,22 +1,17 @@
-### 초기 프로젝트 설정
+설치
+npm run install
 
-- CRA + JS
+실행
+npm run start
 
-원할한 협업을 하기 위한 초기 프로젝트 저장소 입니다.
+📢 배포링크 ( CORS 이슈 존재 )
+🔗 https://main--peaceful-unicorn-6c299f.netlify.app/
 
----
+⚠️ cors 문제가 있습니다. cors disable 실행하신 후 확인해주세요.
 
-4-26일자 회의를 통해 5팀만의 컨벤션을 지정했습니다!
+#window일 경우
+#chrome경로로 가셔서 터미널 창을 여시고, 다음 명령어를 입력하세요.
+chrome.exe --disable-web-security --user-data-dir=%LOCALAPPDATA%\Google\chromeTemp 
+-–allow-file-access-from-files
+또는 cors 해제 확장 프로그램 설치 : https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc
 
-- eslint
-- prettier
-- husky
-  - commit
-  - push
-- lint-staged
-
-```tsx
-husky만 사용하면 프로젝트의 모든 코드를 검사히기 때문에 비효율적이지만,
-
-lint-staged는 Git의 staged한 코드만 검사해서, 보다 효율적인 lint가 가능하다
-```
