@@ -14,7 +14,7 @@ const DIV = styled.div`
   background-color: white;
   width: 430px;
   position: absolute;
-  left: 745px;
+  left: 300px;
   top: 185px;
   border-radius: 25px;
   border: 1px solid ${primaryColor};

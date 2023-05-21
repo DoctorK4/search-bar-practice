@@ -1,8 +1,6 @@
 import { AxiosError } from 'axios';
 import { axiosInstance } from './axiosInstance';
 
-const BASE_URL = `https://api.clinicaltrialskorea.com/api/v1/`;
-
 export const getRecommendData = async KeywordInput => {
   if (KeywordInput.length === 0) return;
 
